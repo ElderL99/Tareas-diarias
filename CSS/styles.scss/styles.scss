@@ -8,6 +8,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    padding: 0 10px;
 }
 
 .container {
@@ -15,7 +16,8 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
 }
 
 .clock {
@@ -25,4 +27,26 @@ body {
 .list-group-item.completed {
     text-decoration: line-through;
     color: $secondary-color;
+}
+
+.completed-time {
+    font-size: 0.8em;
+    color: $secondary-color;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group .form-control,
+.input-group .btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.input-group .input-group-append {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
