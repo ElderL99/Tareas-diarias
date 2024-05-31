@@ -38,11 +38,24 @@ function addTask() {
         const completedTime = `${hours}:${minutes}`;
         newTask.classList.toggle('completed');
         newTask.innerHTML = `<span>${taskTime} - ${taskText}</span><span class="completed-time">Completado a las ${completedTime}</span>`;
-        newTask.appendChild(completeButton);
+        newTask.appendChild(taskButtons);
         saveTasks();
     };
 
-    newTask.appendChild(completeButton);
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'btn btn-danger btn-sm';
+    deleteButton.textContent = 'Eliminar';
+    deleteButton.onclick = function() {
+        newTask.remove();
+        saveTasks();
+    };
+
+    const taskButtons = document.createElement('div');
+    taskButtons.className = 'task-buttons';
+    taskButtons.appendChild(completeButton);
+    taskButtons.appendChild(deleteButton);
+
+    newTask.appendChild(taskButtons);
     taskList.appendChild(newTask);
 
     taskInput.value = '';
@@ -82,13 +95,32 @@ function loadTasks() {
             const completedTime = `${hours}:${minutes}`;
             newTask.classList.toggle('completed');
             newTask.innerHTML = `<span>${task.text}</span><span class="completed-time">Completado a las ${completedTime}</span>`;
-            newTask.appendChild(completeButton);
+            newTask.appendChild(taskButtons);
             saveTasks();
         };
 
-        newTask.appendChild(completeButton);
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger btn-sm';
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.onclick = function() {
+            newTask.remove();
+            saveTasks();
+        };
+
+        const taskButtons = document.createElement('div');
+        taskButtons.className = 'task-buttons';
+        taskButtons.appendChild(completeButton);
+        taskButtons.appendChild(deleteButton);
+
+        newTask.appendChild(taskButtons);
         taskList.appendChild(newTask);
     });
+}
+
+function clearAllTasks() {
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+    saveTasks();
 }
 
 document.getElementById('new-task').addEventListener('keypress', function(event) {
