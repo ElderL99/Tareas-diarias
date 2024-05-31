@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', loadTasks);
+document.addEventListener('DOMContentLoaded', function() {
+    loadTasks('adan');
+    loadTasks('barbie');
+});
 
 function updateClock() {
     const clockElement = document.getElementById('clock');
@@ -12,9 +15,9 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock(); // Llamada inicial para que el reloj aparezca inmediatamente
 
-function addTask() {
-    const taskInput = document.getElementById('new-task');
-    const taskTimeInput = document.getElementById('task-time');
+function addTask(person) {
+    const taskInput = document.getElementById(`new-task-${person}`);
+    const taskTimeInput = document.getElementById(`task-time-${person}`);
     const taskText = taskInput.value.trim();
     const taskTime = taskTimeInput.value;
 
@@ -23,7 +26,7 @@ function addTask() {
         return;
     }
 
-    const taskList = document.getElementById('task-list');
+    const taskList = document.getElementById(`task-list-${person}`);
     const newTask = document.createElement('li');
     newTask.className = 'list-group-item d-flex justify-content-between align-items-center';
     newTask.innerHTML = `<span>${taskTime} - ${taskText}</span>`;
@@ -39,7 +42,7 @@ function addTask() {
         newTask.classList.toggle('completed');
         newTask.innerHTML = `<span>${taskTime} - ${taskText}</span><span class="completed-time">Completado a las ${completedTime}</span>`;
         newTask.appendChild(taskButtons);
-        saveTasks();
+        saveTasks(person);
     };
 
     const deleteButton = document.createElement('button');
@@ -47,7 +50,7 @@ function addTask() {
     deleteButton.textContent = 'Eliminar';
     deleteButton.onclick = function() {
         newTask.remove();
-        saveTasks();
+        saveTasks(person);
     };
 
     const taskButtons = document.createElement('div');
@@ -60,23 +63,23 @@ function addTask() {
 
     taskInput.value = '';
     taskTimeInput.value = '';
-    saveTasks();
+    saveTasks(person);
 }
 
-function saveTasks() {
-    const taskList = document.getElementById('task-list');
+function saveTasks(person) {
+    const taskList = document.getElementById(`task-list-${person}`);
     const tasks = [];
     taskList.querySelectorAll('li').forEach(task => {
         const taskText = task.querySelector('span').textContent;
         const isCompleted = task.classList.contains('completed');
         tasks.push({ text: taskText, completed: isCompleted });
     });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem(`tasks-${person}`, JSON.stringify(tasks));
 }
 
-function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const taskList = document.getElementById('task-list');
+function loadTasks(person) {
+    const tasks = JSON.parse(localStorage.getItem(`tasks-${person}`)) || [];
+    const taskList = document.getElementById(`task-list-${person}`);
     tasks.forEach(task => {
         const newTask = document.createElement('li');
         newTask.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -96,7 +99,7 @@ function loadTasks() {
             newTask.classList.toggle('completed');
             newTask.innerHTML = `<span>${task.text}</span><span class="completed-time">Completado a las ${completedTime}</span>`;
             newTask.appendChild(taskButtons);
-            saveTasks();
+            saveTasks(person);
         };
 
         const deleteButton = document.createElement('button');
@@ -104,7 +107,7 @@ function loadTasks() {
         deleteButton.textContent = 'Eliminar';
         deleteButton.onclick = function() {
             newTask.remove();
-            saveTasks();
+            saveTasks(person);
         };
 
         const taskButtons = document.createElement('div');
@@ -117,14 +120,20 @@ function loadTasks() {
     });
 }
 
-function clearAllTasks() {
-    const taskList = document.getElementById('task-list');
+function clearAllTasks(person) {
+    const taskList = document.getElementById(`task-list-${person}`);
     taskList.innerHTML = '';
-    saveTasks();
+    saveTasks(person);
 }
 
-document.getElementById('new-task').addEventListener('keypress', function(event) {
+document.getElementById('new-task-adan').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        addTask();
+        addTask('adan');
+    }
+});
+
+document.getElementById('new-task-barbie').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addTask('barbie');
     }
 });

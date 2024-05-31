@@ -11,15 +11,34 @@
     <div class="container">
         <h1 class="text-center my-4">Planificador Diario</h1>
         <div id="clock" class="clock text-center mb-4"></div>
-        <div class="input-group mb-3">
-            <input type="text" id="new-task" class="form-control" placeholder="Nueva tarea...">
-            <input type="time" id="task-time" class="form-control ml-2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" onclick="addTask()">Agregar</button>
+
+        <!-- Planificador de Adan -->
+        <div class="planner">
+            <h2>Adan</h2>
+            <div class="input-group mb-3">
+                <input type="text" id="new-task-adan" class="form-control" placeholder="Nueva tarea...">
+                <input type="time" id="task-time-adan" class="form-control ml-2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" onclick="addTask('adan')">Agregar</button>
+                </div>
             </div>
+            <button class="btn btn-danger mb-3" type="button" onclick="clearAllTasks('adan')">Eliminar Todas las Tareas</button>
+            <ul id="task-list-adan" class="list-group"></ul>
         </div>
-        <button class="btn btn-danger mb-3" type="button" onclick="clearAllTasks()">Eliminar Todas las Tareas</button>
-        <ul id="task-list" class="list-group"></ul>
+
+        <!-- Planificador de Barbie -->
+        <div class="planner mt-4">
+            <h2>Barbie</h2>
+            <div class="input-group mb-3">
+                <input type="text" id="new-task-barbie" class="form-control" placeholder="Nueva tarea...">
+                <input type="time" id="task-time-barbie" class="form-control ml-2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" onclick="addTask('barbie')">Agregar</button>
+                </div>
+            </div>
+            <button class="btn btn-danger mb-3" type="button" onclick="clearAllTasks('barbie')">Eliminar Todas las Tareas</button>
+            <ul id="task-list-barbie" class="list-group"></ul>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
